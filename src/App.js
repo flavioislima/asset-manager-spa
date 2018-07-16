@@ -9,17 +9,17 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="/">Product Manager</a>
-            <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav">
-                <li class="nav-item">
-                  <Link className="nav-link" to="/">Home <span class="sr-only">(current)</span></Link>
+          <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a className="navbar-brand" href="/">Product Manager</a>
+            <div className="collapse navbar-collapse" id="navbarNav">
+              <ul className="navbar-nav">
+                <li className="nav-item">
+                  <Link className="nav-link" to="/">Home <span className="sr-only">(current)</span></Link>
                 </li>
-                <li class="nav-item">
+                <li className="nav-item">
                   <Link className="nav-link" to="/products">Products</Link>
                 </li>
-                <li class="nav-item">
+                <li className="nav-item">
                   <Link className="nav-link" to="/about">About</Link>
                 </li>
               </ul>

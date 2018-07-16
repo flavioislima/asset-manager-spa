@@ -21,7 +21,7 @@ export default class Products extends Component {
     }
 
     renderCat(cat) {
-        return <li key={cat.id}><Link to={`/products/categories/${cat.id}`}>{cat.category}</Link></li>
+        return <li className="list-group-item" key={cat.id}><Link to={`/products/categories/${cat.id}`}>{cat.category}</Link></li>
     }
 
     render() {
@@ -29,9 +29,9 @@ export default class Products extends Component {
         const { categories } = this.state
         return (
             <div className='row'>
-                <div className='col-md-2'>
-                    <h3>Categories:</h3>
-                    <ul>
+                <div className='col-md-2'  >
+                    <h4 style={{ margin: 5 }} className="lead">Categories:</h4>
+                    <ul className="list-group">
                         {categories.map(this.renderCat)}
                     </ul>
                 </div>
