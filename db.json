@@ -1,0 +1,17 @@
+{
+    "Products": [],
+    "Categories": [
+        {
+            "id": 1,
+            "category": "Fruits and Vegetables"
+        },
+        {
+            "id": 2,
+            "category": "Meat"
+        },
+        {
+            "id": 3,
+            "category": "Cleaning"
+        }
+    ]
+}
