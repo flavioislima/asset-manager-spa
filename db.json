@@ -1,82 +1,88 @@
 {
-    "Products": [
-        {
-            "id": 1,
-            "category": 1,
-            "name": "Apple"
-        },
-        {
-            "id": 2,
-            "category": 1,
-            "name": "Banana"
-        },
-        {
-            "id": 3,
-            "category": 2,
-            "name": "Saussage"
-        },
-        {
-            "id": 4,
-            "category": 3,
-            "name": "Soap"
-        },
-        {
-            "id": 5,
-            "category": 3,
-            "name": "Tooth Brush"
-        },
-        {
-            "id": 6,
-            "category": 4,
-            "name": "Face Towel"
-        },
-        {
-            "id": 7,
-            "category": 1,
-            "name": "Orange"
-        },
-        {
-            "id": 8,
-            "category": 1,
-            "name": "Mango"
-        },
-        {
-            "id": 9,
-            "category": 1,
-            "name": "Watermelon"
-        },
-        {
-            "id": 10,
-            "category": 2,
-            "name": "Pork"
-        },
-        {
-            "id": 11,
-            "category": 2,
-            "name": "Beef"
-        },
-        {
-            "id": 12,
-            "category": 2,
-            "name": "Hamburguer"
-        }
-    ],
-    "Categories": [
-        {
-            "id": 1,
-            "category": "Fruits"
-        },
-        {
-            "id": 2,
-            "category": "Meat"
-        },
-        {
-            "id": 3,
-            "category": "Cleaning"
-        },
-        {
-            "id": 4,
-            "category": "Utilities"
-        }
-    ]
+  "Products": [
+    {
+      "id": 1,
+      "category": 1,
+      "name": "Apple"
+    },
+    {
+      "id": 2,
+      "category": 1,
+      "name": "Banana"
+    },
+    {
+      "id": 3,
+      "category": 2,
+      "name": "Saussage"
+    },
+    {
+      "id": 4,
+      "category": 3,
+      "name": "Soap"
+    },
+    {
+      "id": 5,
+      "category": 3,
+      "name": "Tooth Brush"
+    },
+    {
+      "id": 6,
+      "category": 4,
+      "name": "Face Towel"
+    },
+    {
+      "id": 7,
+      "category": 1,
+      "name": "Orange"
+    },
+    {
+      "id": 8,
+      "category": 1,
+      "name": "Mango"
+    },
+    {
+      "id": 10,
+      "category": 2,
+      "name": "Pork"
+    },
+    {
+      "id": 11,
+      "category": 2,
+      "name": "Beef"
+    }
+  ],
+  "Categories": [
+    {
+      "id": 1,
+      "category": "Fruits"
+    },
+    {
+      "id": 2,
+      "category": "Meat"
+    },
+    {
+      "id": 3,
+      "category": "Cleaning"
+    },
+    {
+      "id": 4,
+      "category": "Utilities"
+    },
+    {
+      "category": "Diet",
+      "id": 5
+    },
+    {
+      "category": "Music",
+      "id": 6
+    },
+    {
+      "category": "Drinks",
+      "id": 8
+    },
+    {
+      "category": "PetShop",
+      "id": 9
+    }
+  ]
 }

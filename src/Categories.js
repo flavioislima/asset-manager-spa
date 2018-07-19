@@ -9,17 +9,21 @@ export default class Categories extends Component {
             categories: []
         })
         this.loadData = this.loadData.bind(this)
+        this.renderProd = this.renderProd.bind(this)
+        this.deleteProd = this.deleteProd.bind(this)
     }
 
+    url = 'http://localhost:3001/'
+
     loadData(id) {
-        axios.get('http://localhost:3001/products?category=' + id)
+        axios.get(`${this.url}products?category=${id}`)
             .then(result => {
                 this.setState({
                     products: result.data
                 })
             })
 
-        axios.get('http://localhost:3001/categories?id=' + id)
+        axios.get(`${this.url}categories?id=${id}`)
             .then(res => {
                 this.setState({ categories: res.data })
             })
@@ -36,11 +40,24 @@ export default class Categories extends Component {
     }
 
     renderProd(prod) {
-        return <li className="list-group-item list-group-item-light" key={prod.id}>{prod.name}</li>
+        return <li className="list-group-item list-group-item-light" key={prod.id}>{prod.name}
+            <button className="close" type="button btn-sm" onClick={() => this.deleteProd(prod)}><span>x</span></button></li>
     }
 
     renderCat(cat) {
         return <h3 key={cat.id} >{cat.category}</h3>
+    }
+
+    deleteProd(prod) {
+        if (window.confirm(`Do you want to delete ${prod.name}?`)) {
+            console.log(prod.id)
+            axios.delete(`${this.url}products/${prod.id}`)
+                .then(() => {
+                    alert(`Product ${prod.name} deleted!`)
+                    const id = this.props.match.params.catId
+                    this.loadData(id)
+                })
+        }
     }
 
     render() {
