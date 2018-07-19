@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import axios from 'axios'
+import api from './Api'
 
 export default class Categories extends Component {
     constructor(props) {
@@ -14,18 +14,18 @@ export default class Categories extends Component {
         this.deleteProd = this.deleteProd.bind(this)
     }
 
-    url = 'http://localhost:3001/'
-    
+    url = 'http://localhost:3001'
+
 
     loadData(id) {
-        axios.get(`${this.url}products?category=${id}`)
+        api.loadProducts(id)
             .then(result => {
                 this.setState({
                     products: result.data
                 })
             })
 
-        axios.get(`${this.url}categories?id=${id}`)
+        api.loadCategories(id)
             .then(res => {
                 this.setState({ categories: res.data })
             })
@@ -54,15 +54,9 @@ export default class Categories extends Component {
         const id = this.props.match.params.catId
 
         if (event.keyCode === 13) {
-            axios
-                .post(`${this.url}products`,
-                    {
-                        "name": this.refs.newCat.value,
-                        "category": id
-                    })
+            api.insertProduct(this.refs.newProd.value, id)
                 .then(() => {
-                    // alert(`Product ${this.refs.newCat.value} created!`)
-                    this.refs.newCat.value = ''
+                    this.refs.newProd.value = ''
                     event.preventDefault()
                     this.loadData(id)
                 })
@@ -71,8 +65,7 @@ export default class Categories extends Component {
 
     deleteProd(prod) {
         if (window.confirm(`Do you want to delete ${prod.name}?`)) {
-            console.log(prod.id)
-            axios.delete(`${this.url}products/${prod.id}`)
+            api.deleteProduct(prod)
                 .then(() => {
                     alert(`Product ${prod.name} deleted!`)
                     const id = this.props.match.params.catId
@@ -86,11 +79,11 @@ export default class Categories extends Component {
             <div>
                 <small style={{ textAlign: 'center' }} className="text-muted">{this.state.categories.map(this.renderCat)}</small>
                 <div className="input-group mb-3">
-                <div className="input-group-prepend">
-                    <span className="input-group-text" id="inputGroup-sizing-default">Products</span>
+                    <div className="input-group-prepend">
+                        <span className="input-group-text" id="inputGroup-sizing-default">Products</span>
+                    </div>
+                    <input onKeyDown={this.insertProd} ref="newProd" placeholder="Insert new Product" type="text" className="form-control" aria-label="New Category" aria-describedby="inputGroup-sizing-default" />
                 </div>
-                <input onKeyDown={this.insertProd} ref="newCat" placeholder="Insert new Product" type="text" className="form-control" aria-label="New Category" aria-describedby="inputGroup-sizing-default" />
-            </div>
                 <ul className="list-group list-group-flush">
                     {this.state.products.map(this.renderProd)}
                 </ul>

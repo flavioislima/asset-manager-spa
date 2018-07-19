@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Route, Link } from 'react-router-dom'
-import axios from 'axios'
+import api from './Api'
 import ProdHome from './ProdHome'
 import Categories from './Categories'
 
@@ -16,14 +16,12 @@ export default class Products extends Component {
         this.renderCat = this.renderCat.bind(this)
     }
 
-    url = 'http://localhost:3001/categories'
-
     componentDidMount() {
         this.loadCategories()
     }
 
     loadCategories() {
-        axios.get(this.url)
+        api.loadAllCategories()
             .then(result => {
                 this.setState({
                     categories: result.data
@@ -40,11 +38,7 @@ export default class Products extends Component {
 
     insertCategory(event) {
         if (event.keyCode === 13) {
-            axios
-                .post(this.url,
-                    {
-                        "category": this.refs.newCat.value
-                    })
+            api.insertCategory(this.refs.newCat.value)
                 .then(() => {
                     alert(`Category ${this.refs.newCat.value} created!`)
                     this.refs.newCat.value = ''
@@ -57,8 +51,8 @@ export default class Products extends Component {
     deleteCategory(category) {
         if (window.confirm(`Do you really want to delete ${category.category} category?`)) {
             console.log(category.id)
-            axios.delete(`${this.url}/${category.id}`)
-                .then(() =>  this.loadCategories())
+            api.deleteCategory(category.id)
+                .then(() => this.loadCategories())
         }
     }
 

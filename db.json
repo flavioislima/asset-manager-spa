@@ -76,11 +76,6 @@
       "id": 16
     },
     {
-      "name": "Metallica - Ride the Lightning",
-      "category": "6",
-      "id": 17
-    },
-    {
       "name": "Beer",
       "category": "8",
       "id": 18
@@ -94,6 +89,26 @@
       "name": "Hamburguer",
       "category": "2",
       "id": 20
+    },
+    {
+      "name": "Megadeth - Rust in Peace",
+      "category": "6",
+      "id": 21
+    },
+    {
+      "name": "Aspirin",
+      "category": "10",
+      "id": 22
+    },
+    {
+      "name": "Cold Medicine",
+      "category": "10",
+      "id": 23
+    },
+    {
+      "name": "Band-Aid",
+      "category": "10",
+      "id": 24
     }
   ],
   "Categories": [
@@ -114,10 +129,6 @@
       "category": "Utilities"
     },
     {
-      "category": "Diet",
-      "id": 5
-    },
-    {
       "category": "Music",
       "id": 6
     },
@@ -128,6 +139,10 @@
     {
       "category": "PetShop",
       "id": 9
+    },
+    {
+      "category": "Health",
+      "id": 10
     }
   ]
 }
