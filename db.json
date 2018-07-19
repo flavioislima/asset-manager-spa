@@ -49,6 +49,51 @@
       "id": 11,
       "category": 2,
       "name": "Beef"
+    },
+    {
+      "name": "Vodka",
+      "category": "8",
+      "id": 12
+    },
+    {
+      "name": "Joy Division - Closer",
+      "category": "6",
+      "id": 13
+    },
+    {
+      "name": "Cat Ration",
+      "category": "9",
+      "id": 14
+    },
+    {
+      "name": "Dog Ration",
+      "category": "9",
+      "id": 15
+    },
+    {
+      "name": "Pink Floyd - The Wall",
+      "category": "6",
+      "id": 16
+    },
+    {
+      "name": "Metallica - Ride the Lightning",
+      "category": "6",
+      "id": 17
+    },
+    {
+      "name": "Beer",
+      "category": "8",
+      "id": 18
+    },
+    {
+      "name": "Wine",
+      "category": "8",
+      "id": 19
+    },
+    {
+      "name": "Hamburguer",
+      "category": "2",
+      "id": 20
     }
   ],
   "Categories": [
