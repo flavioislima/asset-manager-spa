@@ -1,64 +1,39 @@
 import React, { Component } from 'react'
 import { Route, Link } from 'react-router-dom'
-import api from './Api'
 import ProdHome from './ProdHome'
 import Categories from './Categories'
 
 export default class Products extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-            categories: []
-        }
-        this.loadCategories = this.loadCategories.bind(this)
         this.insertCategory = this.insertCategory.bind(this)
-        this.deleteCategory = this.deleteCategory.bind(this)
         this.renderCat = this.renderCat.bind(this)
     }
 
     componentDidMount() {
-        this.loadCategories()
+        this.props.loadCategories()
     }
 
     loadCategories() {
-        api.loadAllCategories()
-            .then(result => {
-                this.setState({
-                    categories: result.data
-                })
-            })
+        this.props.loadCategories()
     }
 
     renderCat(cat) {
         return <li className="list-group-item" key={cat.id}><Link to={`/products/categories/${cat.id}`}>{cat.category}</Link>
-            <button type="button btn-sm" onClick={() => this.deleteCategory(cat)} className="close" aria-label="close">
+            <button type="button btn-sm" onClick={() => this.props.deleteCategory(cat)} className="close" aria-label="close">
                 <span aria-hidden="true">x</span>
             </button></li>
     }
 
     insertCategory(event) {
         if (event.keyCode === 13) {
-            api.insertCategory(this.refs.newCat.value)
-                .then(() => {
-                    alert(`Category ${this.refs.newCat.value} created!`)
-                    this.refs.newCat.value = ''
-                    event.preventDefault()
-                    this.loadCategories()
-                })
-        }
-    }
-
-    deleteCategory(category) {
-        if (window.confirm(`Do you really want to delete ${category.category} category?`)) {
-            console.log(category.id)
-            api.deleteCategory(category.id)
-                .then(() => this.loadCategories())
+            this.props.insertCategory(this.refs.newCat.value)
+            this.refs.newCat.value = ''
         }
     }
 
     render() {
-        const { match } = this.props
-        const { categories } = this.state
+        const { match, categories } = this.props
         return (
             <div className='row'>
                 <div className='col-md-2'  >
@@ -75,7 +50,16 @@ export default class Products extends Component {
                 </div>
                 <div className='col-md-10'>
                     <Route exact path={match.url} component={ProdHome}></Route>
-                    <Route exact path={`${match.url}/categories/:catId`} component={Categories}></Route>
+                    <Route exact path={`${match.url}/categories/:catId`} render={(props) => {
+                        return (
+                            <Categories {...props}
+                                loadProducts={this.props.loadProducts}
+                                insertProduct={this.props.insertProduct}
+                                deleteProduct={this.props.deleteProduct}
+                            />
+                        )
+                    }}>
+                    </Route>
                 </div>
             </div>
         )

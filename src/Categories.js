@@ -14,20 +14,14 @@ export default class Categories extends Component {
         this.deleteProd = this.deleteProd.bind(this)
     }
 
-    url = 'http://localhost:3001'
-
-
     loadData(id) {
+        // this.props.loadProducts(id)
         api.loadProducts(id)
             .then(result => {
+                console.log(result.data)
                 this.setState({
                     products: result.data
                 })
-            })
-
-        api.loadCategories(id)
-            .then(res => {
-                this.setState({ categories: res.data })
             })
     }
 
@@ -54,10 +48,9 @@ export default class Categories extends Component {
         const id = this.props.match.params.catId
 
         if (event.keyCode === 13) {
-            api.insertProduct(this.refs.newProd.value, id)
+            this.props.insertProduct(this.refs.newProd.value, id)
                 .then(() => {
                     this.refs.newProd.value = ''
-                    event.preventDefault()
                     this.loadData(id)
                 })
         }
@@ -65,11 +58,11 @@ export default class Categories extends Component {
 
     deleteProd(prod) {
         if (window.confirm(`Do you want to delete ${prod.name}?`)) {
-            api.deleteProduct(prod)
+            this.props.deleteProduct(prod)
                 .then(() => {
-                    alert(`Product ${prod.name} deleted!`)
                     const id = this.props.match.params.catId
                     this.loadData(id)
+                    alert(`Product ${prod.name} deleted!`)
                 })
         }
     }

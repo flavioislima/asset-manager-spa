@@ -109,6 +109,36 @@
       "name": "Band-Aid",
       "category": "10",
       "id": 24
+    },
+    {
+      "name": "Cat Ration",
+      "category": "11",
+      "id": 25
+    },
+    {
+      "name": "Cat Colar",
+      "category": "11",
+      "id": 26
+    },
+    {
+      "name": "Dog Ration",
+      "category": "11",
+      "id": 27
+    },
+    {
+      "name": "Pet Ball",
+      "category": "11",
+      "id": 28
+    },
+    {
+      "name": "Serum",
+      "category": "10",
+      "id": 31
+    },
+    {
+      "name": "Soro",
+      "category": "10",
+      "id": 32
     }
   ],
   "Categories": [
@@ -137,12 +167,12 @@
       "id": 8
     },
     {
-      "category": "PetShop",
-      "id": 9
-    },
-    {
       "category": "Health",
       "id": 10
+    },
+    {
+      "category": "PetShop",
+      "id": 11
     }
   ]
 }
