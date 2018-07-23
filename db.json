@@ -111,9 +111,9 @@
       "id": 24
     },
     {
-      "name": "Cat Ration",
-      "category": "11",
-      "id": 25
+      "id": 25,
+      "category": 11,
+      "name": "Cat Ration"
     },
     {
       "name": "Cat Colar",
@@ -133,12 +133,17 @@
     {
       "name": "Serum",
       "category": "10",
-      "id": 31
+      "id": 29
     },
     {
-      "name": "Soro",
-      "category": "10",
-      "id": 32
+      "id": 30,
+      "category": 11,
+      "name": "Cat House"
+    },
+    {
+      "name": "Dog House",
+      "category": "11",
+      "id": 31
     }
   ],
   "Categories": [
@@ -163,12 +168,12 @@
       "id": 6
     },
     {
-      "category": "Drinks",
-      "id": 8
+      "id": 8,
+      "category": "Drinks"
     },
     {
-      "category": "Health",
-      "id": 10
+      "id": 10,
+      "category": "Health & Care"
     },
     {
       "category": "PetShop",

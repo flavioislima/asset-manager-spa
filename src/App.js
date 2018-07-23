@@ -19,6 +19,7 @@ class App extends Component {
     this.insertProduct = this.insertProduct.bind(this)
     this.deleteProduct = this.deleteProduct.bind(this)
     this.loadCategory = this.loadCategory.bind(this)
+    this.editProd = this.editProd.bind(this)
   }
 
   loadAllCategories() {
@@ -66,6 +67,10 @@ class App extends Component {
     await this.props.api.deleteProduct(prod.id)
   }
 
+  editProd(prod) {
+    return this.props.api.editProd(prod)
+  }
+
   render() {
     return (
       <Router>
@@ -101,6 +106,7 @@ class App extends Component {
                 insertProduct={this.insertProduct}
                 deleteProduct={this.deleteProduct}
                 editCategory={this.editCategory}
+                editProd={this.editProd}
               />
             )
           }

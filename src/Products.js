@@ -72,7 +72,7 @@ export default class Products extends Component {
                         <button type="button btn-sm" onClick={() => this.props.deleteCategory(cat)} className="close" aria-label="delete">
                             <span aria-hidden="true">&times;</span></button>
                         <button type="button btn-sm" onClick={() => this.handleEditCategory(cat)} className="close" aria-label="delete">
-                            <span aria-hidden="true">e</span>
+                            <span aria-hidden="true" className="glyphicon glyphicon-pencil">e</span>
                         </button>
                     </div>
                 }
@@ -104,6 +104,7 @@ export default class Products extends Component {
                                 deleteProduct={this.props.deleteProduct}
                                 categories={this.props.categories}
                                 loadCategories={this.props.loadCategories}
+                                editProd={this.props.editProd}
                             />
                         )
                     }}>

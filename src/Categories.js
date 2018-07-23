@@ -5,12 +5,16 @@ export default class Categories extends Component {
         super(props)
         this.state = ({
             products: [],
-            categories: []
+            categories: [],
+            editingProd: ''
         })
         this.loadData = this.loadData.bind(this)
         this.renderProd = this.renderProd.bind(this)
         this.insertProd = this.insertProd.bind(this)
         this.deleteProd = this.deleteProd.bind(this)
+        this.handleEditProd = this.handleEditProd.bind(this)
+        this.renameProd = this.renameProd.bind(this)
+        this.cancelRename = this.cancelRename.bind(this)
     }
 
     loadData(id) {
@@ -36,15 +40,6 @@ export default class Categories extends Component {
         this.loadData(id)
     }
 
-    renderProd(prod) {
-        return <li className="list-group-item list-group-item-light" key={prod.id}>{prod.name}
-            <button className="close" type="button btn-sm" onClick={() => this.deleteProd(prod)}><span>&times;</span></button></li>
-    }
-
-    renderCat(cat) {
-        return <h3 key={cat.id} >{cat.category}</h3>
-    }
-
     insertProd(event) {
         const id = this.props.match.params.catId
 
@@ -66,6 +61,58 @@ export default class Categories extends Component {
                     alert(`Product ${prod.name} deleted!`)
                 })
         }
+    }
+
+    renameProd(key) {
+        const id = this.props.match.params.catId
+        if (key.keyCode === 13) {
+            this.props.editProd({
+                id: this.state.editingProd,
+                category: this.state.categories[0].id,
+                name: this.refs['prod-' + this.state.editingProd].value
+            })
+                .then(() => {
+                    this.setState({
+                        editingProd: ''
+                    })
+                    this.loadData(id)
+                })
+        }
+    }
+
+    handleEditProd(prod) {
+        this.setState({
+            editingProd: prod.id
+        })
+    }
+
+    cancelRename() {
+        this.setState({
+            editingProd: ''
+        })
+    }
+
+    renderProd(prod) {
+        return (
+            <div key={prod.id}>
+                {this.state.editingProd !== prod.id &&
+                    <li className="list-group-item list-group-item-light">{prod.name}
+                        <button className="close" type="button btn-sm" onClick={() => this.deleteProd(prod)}><span>&times;</span></button>
+                        <button className="close" type="button btn-sm" onClick={() => this.handleEditProd(prod)}><span>edit</span></button>
+                    </li>
+                }
+                {this.state.editingProd === prod.id &&
+                    <div>
+                        <input onKeyDown={this.renameProd} ref={'prod-' + prod.id} defaultValue={prod.name} />
+                        <button onClick={this.cancelRename} className="btn btn-secondary">Cancel</button>
+                    </div>
+                }
+            </div>
+        )
+    }
+
+    renderCat(cat) {
+        return <h3 key={cat.id} >{cat.category}</h3>
     }
 
     render() {
