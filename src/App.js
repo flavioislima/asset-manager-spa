@@ -14,9 +14,11 @@ class App extends Component {
     this.loadAllCategories = this.loadAllCategories.bind(this)
     this.deleteCategory = this.deleteCategory.bind(this)
     this.insertCategory = this.insertCategory.bind(this)
+    this.editCategory = this.editCategory.bind(this)
     this.loadProducts = this.loadProducts.bind(this)
     this.insertProduct = this.insertProduct.bind(this)
     this.deleteProduct = this.deleteProduct.bind(this)
+    this.loadCategory = this.loadCategory.bind(this)
   }
 
   loadAllCategories() {
@@ -28,12 +30,20 @@ class App extends Component {
       })
   }
 
+  loadCategory(id) {
+    return this.props.api.loadCategories(id)
+  }
+
   insertCategory(value) {
     this.props.api.insertCategory(value)
       .then(() => {
         alert(`Category ${value} created!`)
         this.loadAllCategories()
       })
+  }
+
+  editCategory(category) {
+    return this.props.api.editCategory(category)
   }
 
   deleteCategory(category) {
@@ -45,13 +55,7 @@ class App extends Component {
   }
 
   loadProducts(id) {
-    this.props.api.loadProducts(id)
-      .then(result => {
-        console.log(result.data)
-        this.setState({
-          products: result.data
-        })
-      })
+    return this.props.api.loadProducts(id)
   }
 
   async insertProduct(value, id) {
@@ -59,7 +63,6 @@ class App extends Component {
   }
 
   async deleteProduct(prod) {
-    console.log(prod.id)
     await this.props.api.deleteProduct(prod.id)
   }
 
@@ -90,12 +93,14 @@ class App extends Component {
               <Products {...props}
                 categories={this.state.categories}
                 products={this.state.products}
-                loadCategories={this.loadAllCategories}
+                loadAllCategories={this.loadAllCategories}
+                loadCategories={this.loadCategory}
                 insertCategory={this.insertCategory}
                 deleteCategory={this.deleteCategory}
                 loadProducts={this.loadProducts}
                 insertProduct={this.insertProduct}
                 deleteProduct={this.deleteProduct}
+                editCategory={this.editCategory}
               />
             )
           }

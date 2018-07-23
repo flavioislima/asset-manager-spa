@@ -6,23 +6,18 @@ import Categories from './Categories'
 export default class Products extends Component {
     constructor(props) {
         super(props)
+        this.state = {
+            editingCat: ''
+        }
         this.insertCategory = this.insertCategory.bind(this)
         this.renderCat = this.renderCat.bind(this)
+        this.handleEditCategory = this.handleEditCategory.bind(this)
+        this.cancelEditing = this.cancelEditing.bind(this)
+        this.renameCategory = this.renameCategory.bind(this)
     }
 
     componentDidMount() {
-        this.props.loadCategories()
-    }
-
-    loadCategories() {
-        this.props.loadCategories()
-    }
-
-    renderCat(cat) {
-        return <li className="list-group-item" key={cat.id}><Link to={`/products/categories/${cat.id}`}>{cat.category}</Link>
-            <button type="button btn-sm" onClick={() => this.props.deleteCategory(cat)} className="close" aria-label="close">
-                <span aria-hidden="true">x</span>
-            </button></li>
+        this.props.loadAllCategories()
     }
 
     insertCategory(event) {
@@ -31,6 +26,60 @@ export default class Products extends Component {
             this.refs.newCat.value = ''
         }
     }
+
+    renameCategory(key) {
+        if (key.keyCode === 13) {
+            this.props.editCategory({
+                id: this.state.editingCat,
+                category: this.refs['cat-' + this.state.editingCat].value
+            })
+                .then(() => {
+                    this.setState({
+                        editingCat: ''
+                    })
+                    this.props.loadCategories()
+
+                })
+        }
+    }
+
+    handleEditCategory(category) {
+        this.setState({
+            editingCat: category.id
+        })
+    }
+
+    cancelEditing() {
+        this.setState({
+            editingCat: ''
+        })
+    }
+
+    renderCat(cat) {
+        return (
+            <li className="list-group-item" key={cat.id}>
+                {this.state.editingCat === cat.id &&
+                    <div className="input-group">
+                        <div className="input-group-btn"><span>
+                            <input onKeyDown={this.renameCategory} ref={'cat-' + cat.id} defaultValue={cat.category} type="text" className="form-control" aria-label="Edit Category" aria-describedby="inputGroup-sizing-default" />
+                            <button className="btn btn-primary" onClick={this.cancelEditing}>Cancel</button></span>
+                        </div>
+                    </div>
+                }
+                {this.state.editingCat !== cat.id &&
+                    <div>
+                        <Link to={`/products/categories/${cat.id}`}>{cat.category}</Link>
+                        <button type="button btn-sm" onClick={() => this.props.deleteCategory(cat)} className="close" aria-label="delete">
+                            <span aria-hidden="true">&times;</span></button>
+                        <button type="button btn-sm" onClick={() => this.handleEditCategory(cat)} className="close" aria-label="delete">
+                            <span aria-hidden="true">e</span>
+                        </button>
+                    </div>
+                }
+            </li>
+        )
+    }
+
 
     render() {
         const { match, categories } = this.props
@@ -42,10 +91,7 @@ export default class Products extends Component {
                         {categories.map(this.renderCat)}
                     </ul>
                     <div className="input-group mb-3">
-                        <div className="input-group-prepend">
-                            <span className="input-group-text" id="inputGroup-sizing-default">Category</span>
-                        </div>
-                        <input onKeyDown={this.insertCategory} ref="newCat" placeholder="Insert new one" type="text" className="form-control" aria-label="New Category" aria-describedby="inputGroup-sizing-default" />
+                        <input onKeyDown={this.insertCategory} ref="newCat" placeholder="Insert Category" type="text" className="form-control" aria-label="New Category" aria-describedby="inputGroup-sizing-default" />
                     </div>
                 </div>
                 <div className='col-md-10'>
@@ -56,6 +102,8 @@ export default class Products extends Component {
                                 loadProducts={this.props.loadProducts}
                                 insertProduct={this.props.insertProduct}
                                 deleteProduct={this.props.deleteProduct}
+                                categories={this.props.categories}
+                                loadCategories={this.props.loadCategories}
                             />
                         )
                     }}>

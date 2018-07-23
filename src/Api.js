@@ -9,6 +9,7 @@ const api = {
     loadCategories: (id) => ax.get(`/categories?id=${id}`),
     loadProducts: (id) => ax.get(`/products?category=${id}`),
     insertCategory: (category) => ax.post(`/categories`, { category }),
+    editCategory: (category) => ax.put(`/categories/${category.id}`, category),
     insertProduct: (name, category) => ax.post(`/Products`, { name, category }),
     deleteCategory: (id) => ax.delete(`/categories/${id}`),
     deleteProduct: (id) => ax.delete(`/products/${id}`)

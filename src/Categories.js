@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import api from './Api'
 
 export default class Categories extends Component {
     constructor(props) {
@@ -15,14 +14,16 @@ export default class Categories extends Component {
     }
 
     loadData(id) {
-        // this.props.loadProducts(id)
-        api.loadProducts(id)
+        this.props.loadProducts(id)
             .then(result => {
-                console.log(result.data)
                 this.setState({
                     products: result.data
                 })
             })
+        this.props.loadCategories(id)
+            .then(r => this.setState({
+                categories: r.data
+            }))
     }
 
     componentDidMount() {
@@ -37,7 +38,7 @@ export default class Categories extends Component {
 
     renderProd(prod) {
         return <li className="list-group-item list-group-item-light" key={prod.id}>{prod.name}
-            <button className="close" type="button btn-sm" onClick={() => this.deleteProd(prod)}><span>x</span></button></li>
+            <button className="close" type="button btn-sm" onClick={() => this.deleteProd(prod)}><span>&times;</span></button></li>
     }
 
     renderCat(cat) {
@@ -59,19 +60,20 @@ export default class Categories extends Component {
     deleteProd(prod) {
         if (window.confirm(`Do you want to delete ${prod.name}?`)) {
             this.props.deleteProduct(prod)
-                .then(() => {
+                .then(async () => {
                     const id = this.props.match.params.catId
-                    this.loadData(id)
+                    await this.loadData(id)
                     alert(`Product ${prod.name} deleted!`)
                 })
         }
     }
 
     render() {
+        const categories = this.state.categories
         return (
             <div>
-                <small style={{ textAlign: 'center' }} className="text-muted">{this.state.categories.map(this.renderCat)}</small>
-                <div className="input-group mb-3">
+                <small style={{ textAlign: 'center' }} className="text-muted">{categories.map(this.renderCat)}</small>
+                <div style={{ marginTop: 10 }} className="input-group mb-3">
                     <div className="input-group-prepend">
                         <span className="input-group-text" id="inputGroup-sizing-default">Products</span>
                     </div>
