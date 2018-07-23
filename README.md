@@ -1,4 +1,4 @@
-# ReactJS Comments App
+# ReactJS Product Manager
 A Product Manager built with ReactJS, Json-Server and Axios.
 
 ### Prerequisites
