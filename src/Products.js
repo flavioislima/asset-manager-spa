@@ -4,30 +4,22 @@ import ProdHome from './ProdHome'
 import Categories from './Categories'
 
 export default class Products extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            editingCat: ''
-        }
-        this.insertCategory = this.insertCategory.bind(this)
-        this.renderCat = this.renderCat.bind(this)
-        this.handleEditCategory = this.handleEditCategory.bind(this)
-        this.cancelEditing = this.cancelEditing.bind(this)
-        this.renameCategory = this.renameCategory.bind(this)
+    state = {
+        editingCat: ''
     }
 
     componentDidMount() {
         this.props.loadAllCategories()
     }
 
-    insertCategory(event) {
+    insertCategory = (event) => {
         if (event.keyCode === 13) {
             this.props.insertCategory(this.refs.newCat.value)
             this.refs.newCat.value = ''
         }
     }
 
-    renameCategory(key) {
+    renameCategory = (key) => {
         if (key.keyCode === 13) {
             this.props.editCategory({
                 id: this.state.editingCat,
@@ -43,19 +35,19 @@ export default class Products extends Component {
         }
     }
 
-    handleEditCategory(category) {
+    handleEditCategory = (category) => {
         this.setState({
             editingCat: category.id
         })
     }
 
-    cancelEditing() {
+    cancelEditing = () => {
         this.setState({
             editingCat: ''
         })
     }
 
-    renderCat(cat) {
+    renderCat = (cat) => {
         return (
             <li className="list-group-item" key={cat.id}>
                 {this.state.editingCat === cat.id &&

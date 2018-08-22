@@ -5,24 +5,12 @@ import About from './About'
 import Products from './Products'
 
 class App extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      categories: [],
-      products: []
-    }
-    this.loadAllCategories = this.loadAllCategories.bind(this)
-    this.deleteCategory = this.deleteCategory.bind(this)
-    this.insertCategory = this.insertCategory.bind(this)
-    this.editCategory = this.editCategory.bind(this)
-    this.loadProducts = this.loadProducts.bind(this)
-    this.insertProduct = this.insertProduct.bind(this)
-    this.deleteProduct = this.deleteProduct.bind(this)
-    this.loadCategory = this.loadCategory.bind(this)
-    this.editProd = this.editProd.bind(this)
+  state = {
+    categories: [],
+    products: []
   }
 
-  loadAllCategories() {
+  loadAllCategories = () => {
     this.props.api.loadAllCategories()
       .then(result => {
         this.setState({
@@ -31,11 +19,11 @@ class App extends Component {
       })
   }
 
-  loadCategory(id) {
+  loadCategory = (id) => {
     return this.props.api.loadCategories(id)
   }
 
-  insertCategory(value) {
+  insertCategory = (value) => {
     this.props.api.insertCategory(value)
       .then(() => {
         alert(`Category ${value} created!`)
@@ -43,11 +31,11 @@ class App extends Component {
       })
   }
 
-  editCategory(category) {
+  editCategory = (category) => {
     return this.props.api.editCategory(category)
   }
 
-  deleteCategory(category) {
+  deleteCategory = (category) => {
     console.log(category.id)
     if (window.confirm(`Do you really want to delete ${category.category} category?`)) {
       this.props.api.deleteCategory(category.id)
@@ -55,19 +43,19 @@ class App extends Component {
     }
   }
 
-  loadProducts(id) {
+  loadProducts = (id) => {
     return this.props.api.loadProducts(id)
   }
 
-  async insertProduct(value, id) {
+  insertProduct = async (value, id) => {
     await this.props.api.insertProduct(value, id)
   }
 
-  async deleteProduct(prod) {
+  deleteProduct = async (prod) => {
     await this.props.api.deleteProduct(prod.id)
   }
 
-  editProd(prod) {
+  editProd = (prod) => {
     return this.props.api.editProd(prod)
   }
 

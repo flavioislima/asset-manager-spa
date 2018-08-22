@@ -1,23 +1,22 @@
 import React, { Component } from 'react'
 
 export default class Categories extends Component {
-    constructor(props) {
-        super(props)
-        this.state = ({
-            products: [],
-            categories: [],
-            editingProd: ''
-        })
-        this.loadData = this.loadData.bind(this)
-        this.renderProd = this.renderProd.bind(this)
-        this.insertProd = this.insertProd.bind(this)
-        this.deleteProd = this.deleteProd.bind(this)
-        this.handleEditProd = this.handleEditProd.bind(this)
-        this.renameProd = this.renameProd.bind(this)
-        this.cancelRename = this.cancelRename.bind(this)
+    state = {
+        products: [],
+        categories: [],
+        editingProd: ''
     }
 
-    loadData(id) {
+    componentDidMount() {
+        const id = this.props.match.params.catId
+        this.loadData(id)
+    }
+
+    componentWillReceiveProps(newProps) {
+        const id = newProps.match.params.catId
+        this.loadData(id)
+    }
+    loadData = (id) => {
         this.props.loadProducts(id)
             .then(result => {
                 this.setState({
@@ -30,17 +29,8 @@ export default class Categories extends Component {
             }))
     }
 
-    componentDidMount() {
-        const id = this.props.match.params.catId
-        this.loadData(id)
-    }
 
-    componentWillReceiveProps(newProps) {
-        const id = newProps.match.params.catId
-        this.loadData(id)
-    }
-
-    insertProd(event) {
+    insertProd = (event) => {
         const id = this.props.match.params.catId
 
         if (event.keyCode === 13) {
@@ -52,7 +42,7 @@ export default class Categories extends Component {
         }
     }
 
-    deleteProd(prod) {
+    deleteProd = (prod) => {
         if (window.confirm(`Do you want to delete ${prod.name}?`)) {
             this.props.deleteProduct(prod)
                 .then(async () => {
@@ -63,7 +53,7 @@ export default class Categories extends Component {
         }
     }
 
-    renameProd(key) {
+    renameProd = (key) => {
         const id = this.props.match.params.catId
         if (key.keyCode === 13) {
             this.props.editProd({
@@ -80,19 +70,19 @@ export default class Categories extends Component {
         }
     }
 
-    handleEditProd(prod) {
+    handleEditProd = (prod) => {
         this.setState({
             editingProd: prod.id
         })
     }
 
-    cancelRename() {
+    cancelRename = () => {
         this.setState({
             editingProd: ''
         })
     }
 
-    renderProd(prod) {
+    renderProd = (prod) => {
         return (
             <div key={prod.id}>
                 {this.state.editingProd !== prod.id &&
@@ -111,7 +101,7 @@ export default class Categories extends Component {
         )
     }
 
-    renderCat(cat) {
+    renderCat = (cat) => {
         return <h3 key={cat.id} >{cat.category}</h3>
     }
 
